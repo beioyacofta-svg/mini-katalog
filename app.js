@@ -138,7 +138,7 @@
   }
 
   // короткие подписи направлений для чипов (порядок = порядок в DATA.sections)
-  const SECTION_SHORT = ['Команда', 'Контент', 'Клиенты', 'Экспертиза', 'Продажи'];
+  const SECTION_SHORT = ['Команда', 'Контент', 'Клиенты', 'Экспертиза', 'Продажи', 'Видео'];
 
   function renderSections() {
     $('#sections').innerHTML = D.sections.map((name, i) => `
