@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>Каталог сценариев — Дизайн процессов</title>
+<meta name="description" content="50 рабочих сценариев с AI: каталог внутри Telegram">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="app.css">
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+<div id="app">
+  <main>
+    <!-- ── каталог ───────────────────────────────────── -->
+    <section class="screen" id="screen-catalog" aria-label="Каталог сценариев">
+      <header class="hdr">
+        <small>Дизайн процессов</small>
+        <h1>50 сценариев с AI</h1>
+        <p>Найдите свою задачу — и первый тест к ней.</p>
+      </header>
+
+      <div class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input id="q" type="search" placeholder="Например: отчёт или контент" autocomplete="off" enterkeyhint="search" aria-label="Поиск по каталогу">
+      </div>
+
+      <div class="chips" id="sections" role="group" aria-label="Направления"></div>
+      <div class="chips" id="types" role="group" aria-label="Формат">
+        <button class="chip" type="button" data-type="request" aria-pressed="false">Разовый запрос</button>
+        <button class="chip" type="button" data-type="assistant" aria-pressed="false">AI-помощник</button>
+        <button class="chip" type="button" data-type="agent" aria-pressed="false">AI-агент</button>
+      </div>
+
+      <div class="counter" id="counter" aria-live="polite">Найдено: 50 из 50</div>
+      <div class="list" id="list"></div>
+      <p class="empty" id="empty-hint" hidden>Сбросьте фильтры, чтобы увидеть все сценарии.</p>
+    </section>
+
+    <!-- ── сценарий ──────────────────────────────────── -->
+    <section class="screen screen--detail detail" id="screen-detail" aria-label="Сценарий">
+      <button class="back" id="back" type="button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+        Каталог
+      </button>
+      <h1>Сценарий</h1>
+      <div class="badges"></div>
+
+      <div class="block">
+        <h2>Кому подойдёт</h2>
+        <p data-slot="fit"></p>
+      </div>
+      <div class="block">
+        <h2>Направление</h2>
+        <p data-slot="works"></p>
+      </div>
+      <div class="block">
+        <h2>Вход</h2>
+        <p data-slot="in"></p>
+      </div>
+      <div class="block">
+        <h2>Выход</h2>
+        <p data-slot="out"></p>
+      </div>
+      <div class="block">
+        <h2>Что проверить</h2>
+        <p data-slot="chk"></p>
+      </div>
+      <div class="block">
+        <h2>Первый тест</h2>
+        <div class="prompt"></div>
+        <div class="prompt__tools">
+          <button class="ghost copy-button" type="button">Скопировать промпт</button>
+          <button class="ghost" id="go-request" type="button">Хочу так же</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── заявка ────────────────────────────────────── -->
+    <section class="screen" id="screen-request" aria-label="Заявка">
+      <header class="hdr">
+        <small>Разбор задачи</small>
+        <h1>Что автоматизируем?</h1>
+        <p>Опишите рутину, которая съедает время. Отвечу в Telegram и предложу схему.</p>
+      </header>
+
+      <label class="field">
+        <span>Как вас зовут</span>
+        <input id="f-name" type="text" placeholder="Например, Надежда" autocomplete="name">
+      </label>
+      <label class="field">
+        <span>Задача</span>
+        <textarea id="f-task" placeholder="Например: каждую неделю собираю отчёты из трёх таблиц и вручную свожу в один"></textarea>
+      </label>
+
+      <button class="send" id="send" type="button">Отправить заявку</button>
+      <p class="hint">Откроется чат с Надеждой, текст уже будет вписан — останется нажать «Отправить». Никаких паролей и платёжных данных не отправляйте.</p>
+    </section>
+
+    <!-- ── о проекте ─────────────────────────────────── -->
+    <section class="screen about" id="screen-about" aria-label="О проекте">
+      <header class="hdr">
+        <small>Дизайн процессов</small>
+        <h1>Автоматизация без магии</h1>
+        <p>Помогаю малому бизнесу и фрилансерам убрать рутину с помощью AI.</p>
+      </header>
+
+      <ul>
+        <li>Сначала безопасность: персональные данные обезличиваем, секреты в чат не отправляем.</li>
+        <li>Деньги и сроки считают формулы, AI объясняет результат.</li>
+        <li>Юридические и финансовые выводы проверяет специалист.</li>
+      </ul>
+
+      <h2>Три уровня работы</h2>
+      <ul>
+        <li><b>Разовый запрос</b> — один результат здесь и сейчас.</li>
+        <li><b>AI-помощник</b> — сценарий повторяется, запуск за человеком.</li>
+        <li><b>AI-агент</b> — работает по событию или расписанию.</li>
+      </ul>
+
+      <h2>Связаться</h2>
+      <a class="link" href="https://t.me/nadjat_29">
+        <span>Telegram</span><span>@nadjat_29</span>
+      </a>
+      <a class="link" href="https://design-processov.ru/">
+        <span>Сайт</span><span>design-processov.ru</span>
+      </a>
+    </section>
+  </main>
+
+  <nav class="tabbar" id="tabs" aria-label="Разделы приложения">
+    <button type="button" data-tab="catalog" aria-selected="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="3"></rect><path d="M7 9h10M7 13h6"></path>
+      </svg>
+      Каталог
+    </button>
+    <button type="button" data-tab="request" aria-selected="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M4 5h16v11H8l-4 4z"></path><path d="M8 9h8M8 12h5"></path>
+      </svg>
+      Заявка
+    </button>
+    <button type="button" data-tab="about" aria-selected="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <circle cx="12" cy="12" r="8.5"></circle><path d="M12 11v5"></path><circle cx="12" cy="8" r=".9" fill="currentColor" stroke="none"></circle>
+      </svg>
+      О проекте
+    </button>
+  </nav>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

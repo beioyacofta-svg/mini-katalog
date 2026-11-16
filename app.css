@@ -1,0 +1,203 @@
+/* Подмостерье · Каталог — вид, близкий к нативному Telegram.
+   Цвета берутся из темы Telegram (переменные --tg-*), бренд — изумруд. */
+
+:root{
+  --brand:#0B7A55;
+  --brand-soft:#E2EFE7;
+  --radius:14px;
+  --radius-sm:10px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --bar-h:56px;
+  --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+
+  /* значения по умолчанию, пока Telegram не передал тему */
+  --bg:#ffffff;
+  --bg-2:#f4f4f5;
+  --card:#ffffff;
+  --text:#14160f;
+  --hint:#6b7166;
+  --line:rgba(20,22,15,.10);
+  --accent:#0B7A55;
+  --accent-text:#ffffff;
+  --tab:#ffffff;
+}
+
+html[data-theme="dark"]{
+  --bg:#17212b;
+  --bg-2:#0e1621;
+  --card:#1e2b38;
+  --text:#f2f4f6;
+  --hint:#a3adb8;
+  --line:rgba(255,255,255,.10);
+  --accent:#2fbf8f;
+  --accent-text:#08251b;
+  --tab:#1a2430;
+  --brand-soft:rgba(47,191,143,.14);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:var(--font);font-size:16px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:contain;
+}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+#app{min-height:100%;display:flex;flex-direction:column}
+
+/* ── экраны ─────────────────────────────────────────────── */
+main{flex:1;position:relative}
+.screen{
+  display:none;flex-direction:column;
+  padding:12px 16px calc(var(--bar-h) + var(--safe-b) + 20px);
+  animation:screen-in .22s ease;
+}
+.screen.is-active{display:flex}
+.screen--detail{padding-bottom:calc(var(--bar-h) + var(--safe-b) + 20px)}
+@keyframes screen-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ── шапка ──────────────────────────────────────────────── */
+.hdr{padding:8px 0 12px}
+.hdr small{
+  display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--hint);margin-bottom:6px;
+}
+.hdr h1{margin:0;font-size:24px;line-height:1.15;letter-spacing:-.02em}
+.hdr p{margin:8px 0 0;color:var(--hint);font-size:14px}
+
+/* ── поиск и фильтры ───────────────────────────────────── */
+.search{position:relative;margin:4px 0 12px}
+.search input{
+  width:100%;min-height:44px;padding:11px 40px 11px 40px;
+  border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--bg-2);color:var(--text);font-size:16px;
+}
+.search input::placeholder{color:var(--hint)}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:.55}
+.chips{
+  display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;margin:0 -16px;
+  padding-left:16px;padding-right:16px;scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;min-height:34px;padding:7px 13px;border-radius:99px;
+  border:1px solid var(--line);background:var(--card);
+  font-size:13px;white-space:nowrap;color:var(--text);
+  transition:background .15s ease,border-color .15s ease,color .15s ease;
+}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-text);font-weight:600}
+.counter{font-size:12px;color:var(--hint);padding:2px 0 8px}
+
+/* ── список сценариев ──────────────────────────────────── */
+.list{display:flex;flex-direction:column;gap:8px}
+.row{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  width:100%;text-align:left;padding:13px 14px;border-radius:var(--radius);
+  background:var(--card);border:1px solid var(--line);
+  transition:background .15s ease,transform .12s ease;
+}
+.row:active{transform:scale(.99);background:var(--bg-2)}
+.row__n{
+  font-variant-numeric:tabular-nums;font-size:12px;font-weight:600;
+  color:var(--accent);padding-top:2px;min-width:1.9em;
+}
+.row__body{min-width:0}
+.row__title{font-size:15.5px;font-weight:600;line-height:1.25;margin:0}
+.row__meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.badge{
+  font-size:10.5px;letter-spacing:.03em;padding:3px 7px;border-radius:6px;
+  background:var(--bg-2);color:var(--hint);white-space:nowrap;
+}
+.badge--agent{background:var(--accent);color:var(--accent-text)}
+.badge--assistant{background:var(--brand-soft);color:var(--accent)}
+.empty{padding:32px 8px;text-align:center;color:var(--hint);font-size:14px}
+
+/* ── экран сценария ────────────────────────────────────── */
+.back{
+  display:inline-flex;align-items:center;gap:6px;min-height:40px;
+  color:var(--accent);font-size:15px;margin:-4px 0 6px;
+}
+.detail h1{font-size:22px;line-height:1.2;margin:6px 0 10px;letter-spacing:-.02em}
+.detail .badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.block{
+  border-top:1px solid var(--line);padding:14px 0;
+}
+.block:first-of-type{border-top:0}
+.block h2{
+  margin:0 0 6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--hint);font-weight:600;
+}
+.block p{margin:0;font-size:15px;line-height:1.5}
+.prompt{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:12px;margin-top:8px;font-size:14.5px;line-height:1.5;
+}
+.prompt__tools{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.ghost{
+  min-height:40px;padding:9px 14px;border-radius:99px;border:1px solid var(--line);
+  background:var(--card);font-size:14px;color:var(--text);
+}
+.ghost:active{background:var(--bg-2)}
+.ghost.is-done{border-color:var(--accent);color:var(--accent)}
+
+/* ── заявка ────────────────────────────────────────────── */
+.field{display:block;margin-bottom:14px}
+.field span{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--hint);margin-bottom:6px}
+.field input,.field textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--bg-2);color:var(--text);font-size:16px;line-height:1.45;
+}
+.field textarea{min-height:120px;resize:vertical}
+.hint{font-size:12.5px;color:var(--hint);margin-top:8px}
+.send{
+  width:100%;min-height:50px;border-radius:var(--radius);background:var(--accent);
+  color:var(--accent-text);font-size:16px;font-weight:600;margin-top:6px;
+}
+.send:active{opacity:.9}
+
+/* ── о проекте ─────────────────────────────────────────── */
+.about li{margin:0 0 10px;padding-left:18px;position:relative;font-size:15px;color:var(--text)}
+.about li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.about h2{font-size:15px;margin:18px 0 8px}
+.link{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  min-height:48px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius-sm);
+  background:var(--card);margin-bottom:8px;font-size:15px;
+}
+.link span:last-child{color:var(--hint)}
+
+/* ── нижнее меню ───────────────────────────────────────── */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:20;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--tab);border-top:1px solid var(--line);
+  padding-bottom:var(--safe-b);
+}
+.tabbar button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+  min-height:var(--bar-h);color:var(--hint);font-size:10.5px;letter-spacing:.02em;
+  transition:color .15s ease;
+}
+.tabbar button svg{opacity:.8}
+.tabbar button[aria-selected="true"]{color:var(--accent)}
+.tabbar button[aria-selected="true"] svg{opacity:1}
+.tabbar.is-hidden{display:none}
+
+/* тост «скопировано» */
+.toast{
+  position:fixed;left:50%;bottom:calc(var(--bar-h) + var(--safe-b) + 16px);
+  transform:translate(-50%,12px);opacity:0;pointer-events:none;
+  background:var(--text);color:var(--bg);font-size:13.5px;
+  padding:9px 14px;border-radius:99px;transition:opacity .18s ease,transform .18s ease;
+  z-index:30;max-width:calc(100% - 32px);text-align:center;
+}
+.toast.is-visible{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.001ms!important;animation-duration:.001ms!important}
+}
